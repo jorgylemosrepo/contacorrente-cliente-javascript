@@ -1,63 +1,67 @@
-class Cliente{
+class Cliente {
     nome;
     cpf;
 }
 
-class ContaCorrente{
-    //Atributos publicos
+class ContaCorrente {
     agencia;
     cliente;
-    //Atributos privados
     _saldo = 0;
 
-    sacar(valor){
-        if(valor <= this._saldo){
+
+    saldo() {
+        let _saldo = this._saldo;
+        console.log(`📊 Seu saldo atual é de R$ ${_saldo}!`);
+    }
+
+    sacar(valor) {
+        if (valor <= this._saldo) {
             console.log(`💳 Saldo antigo: R$ ${this._saldo}\n`);
-            
+
             this._saldo -= valor;
             console.log(`_____________________________\n|💰 Saque feito com Sucesso!|\n|___________________________|\n\n💲 Valor sacado: R$ ${valor} \n💳 Valor atual no saldo: R$ ${this._saldo}`);
-        
-        }else{
+        } else {
             console.log(`⚠️ Valor indisponivel para saque. \n💳 Você possui R$ ${this._saldo}`);//⚠
-    }
-}
-depositar(valor){
-    if(valor <= 0)
-    {
-        return;
-    } 
-    this._saldo += valor;           
-}
-    transferir(valor, conta)
-    {
-       const valorSacado = this.sacar(valor);
-        conta.depositar(valorSacado);
-        console.log(`Valor: R$ ${valorSacado} transferido com sucesso!`)
+        }
+        return valor;
     }
 
+    depositar(valor) {
+        if (valor <= 0) {
+            return;
+        }
+        console.log(`🛅 Valor de R$ ${valor} depositado com sucesso!`)
+        this._saldo += valor;
+
+    }
+    transferir(valor, conta) {
+        const valorSacado = this.sacar(valor);
+        conta.depositar(valorSacado);
+        console.log(`🏦 Valor R$ ${valorSacado} transferido com sucesso!`)
+    }
 }
+
+const cliente = new Cliente();
+cliente.nome = 'Jorge';
+cliente.cpf = 1234578;
 
 const cliente1 = new Cliente();
-cliente1.nome = "Ricardo";
-cliente1.cpf = 111333666;
+cliente1.nome = 'Alice';
+cliente1.cpf = 333334444;
 
-const cliente2 = new Cliente();
-cliente2.nome = "Alice";
-cliente2.cpf = 333777999;
+const contaCJorge = new ContaCorrente();
+contaCJorge._saldo = 0;
+contaCJorge.agencia = 1001;
+contaCJorge.cliente = cliente;
 
-const contaCorrenteRicardo = new ContaCorrente();
-contaCorrenteRicardo._saldo = 0;
-contaCorrenteRicardo.agencia = 1001;
-contaCorrenteRicardo.cliente = cliente1;
+const contaCAlice = new ContaCorrente();
+contaCAlice._saldo = 0;
+contaCAlice.agencia = 1002;
+contaCAlice.cliente = cliente1;
 
+contaCJorge.saldo()
 
-
-const conta2 = new ContaCorrente();
-conta2.cliente = cliente2;
-conta2.agencia = 102;
-
-contaCorrenteRicardo.depositar(500);
-//contaCorrenteRicardo.sacar(150);
-contaCorrenteRicardo.transferir(200, conta2)
-
-console.log(conta2)
+contaCJorge.depositar(100)
+contaCJorge.sacar(50)
+contaCJorge.transferir(50, contaCAlice)
+contaCAlice.saldo()
