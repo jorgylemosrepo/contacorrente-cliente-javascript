@@ -71,3 +71,27 @@ cliente2.Info = ['99999999999', 'Alice']
 
 
 console.log(cliente.JSONInfo(), cliente2.JSONInfo())
+
+// Output
+
+/*
+[LOG]: "O CPF do cliente Alice está errado." 
+[LOG]: "[
+    {
+        "Nome": "Jorge",
+        "Cpf": "00000000000",
+        "Conta Bancaria": {
+            "Agencia": "010",
+            "Saldo": "100"
+        }
+    }
+]",  "[
+    {
+        "Nome": "Alice",
+        "Conta Bancaria": {
+            "Agencia": "014",
+            "Saldo": "200"
+        }
+    }
+]"
+*/
